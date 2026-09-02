@@ -22,3 +22,4 @@ A serverless weather radar/alert/discussion browser
 - [ ] Mesoscale discussions
 - [ ] Storm reports
 - [ ] Climate outlooks
+- [ ] Weather model data?

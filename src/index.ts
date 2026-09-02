@@ -9,12 +9,11 @@ const map = new maplibregl.Map({
     center: [-98.583, 39.833], // starting position [lng, lat]
     zoom: 4,
     minZoom: 2,
-    maxZoom: 16
+    maxZoom: 16,
+    // https://github.com/maplibre/maplibre-gl-js/blob/0d4b6f1e7d53beac00a4423ce53e7c16a3353b5f/src/tile/tile_manager.ts#L460
+    maxTileCacheZoomLevels: 10 // default: 5
 });
 
-// from (TL) -126.0, 50.0
-// (N0R) to (BR) -66.0, 24.0
-// (N0Q) to -126.0+(0.01*12200), 50.0-(0.01*5400)
 map.on('load', () => {
     map.addSource('radar', {
         type: 'raster',
