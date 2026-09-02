@@ -18,7 +18,7 @@ const map = new maplibregl.Map({
 map.on('load', () => {
     map.addSource('radar', {
         type: 'raster',
-        tiles: ["http://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q/{z}/{x}/{y}.png"],
+        tiles: ["https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q/{z}/{x}/{y}.png"],
         tileSize: 256,
         volatile: true
     });
