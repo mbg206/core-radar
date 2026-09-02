@@ -4,7 +4,7 @@ A serverless weather radar/alert/discussion browser
 
 ## For development:
 
-- `npm install` to install dependences
+- `npm ci` to install dependences
 - `npm run build` to build the project into the `public` directory
 - `npm run watch` to start esbuild's watcher (auto-builds when changes are made)
 
