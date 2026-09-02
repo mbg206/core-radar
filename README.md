@@ -2,6 +2,8 @@
 
 A serverless weather radar/alert/discussion browser
 
+[See it here!](https://mbg206.github.io/core-radar/)
+
 ## For development:
 
 - `npm ci` to install dependences
