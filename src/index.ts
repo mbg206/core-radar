@@ -33,3 +33,10 @@ map.on('load', () => {
         },
     });
 });
+
+map.on('zoom', (e) => {
+    const zoom = e.target.getZoom();
+    let opacity = zoom * (-1/14) + (48/35);
+    opacity = Math.min(0.8, Math.max(0.4, opacity));
+    map.setPaintProperty('radar-layer', 'raster-opacity', opacity);
+});
