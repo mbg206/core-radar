@@ -12,10 +12,16 @@ A serverless weather radar/alert/discussion browser
 
 ## Roadmap
 
+### In Progress
+
 - [ ] Basic NEXRAD reflectivity radar
+- [ ] Individual station view (Map tile images)
+
+### Planned/Completed
+
 - [ ] Custom map style
 - [ ] Radar timeline
-- [ ] Individual station view
+- [ ] Individual station view (Level 2/3 parsing)
 - [ ] Point METAR/forecast fetching
 - [ ] Live alert polygons
 - [ ] Convective outlooks

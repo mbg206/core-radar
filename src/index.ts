@@ -1,6 +1,8 @@
-import maplibregl from "maplibre-gl";
+import * as maplibregl from 'maplibre-gl';
 import "maplibre-gl/dist/maplibre-gl.css";
 import {STYLE} from "./style";
+
+maplibregl.setWorkerUrl(new URL('./worker.js', import.meta.url).toString());
 
 const map = new maplibregl.Map({
     container: 'map',
