@@ -1,4 +1,4 @@
-import { fetchNWS } from "../api/nws";
+import { fetchNWS } from "./nws";
 
 interface RadarStation {
     lon: number;

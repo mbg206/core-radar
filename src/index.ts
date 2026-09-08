@@ -1,9 +1,11 @@
 import * as maplibregl from 'maplibre-gl';
 import "maplibre-gl/dist/maplibre-gl.css";
 import {STYLE} from "./style";
+import { getL2Scans, getL3Scans, getMRMSData } from './network/aws/nexrad';
 
 maplibregl.setWorkerUrl(new URL('./worker.js', import.meta.url).toString());
 
+/*
 const map = new maplibregl.Map({
     container: 'map',
     //style: STYLE,
@@ -19,7 +21,10 @@ const map = new maplibregl.Map({
 map.on('load', () => {
     map.addSource('radar', {
         type: 'raster',
-        tiles: ["https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q/{z}/{x}/{y}.png"],
+        tiles: [
+            //"https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q/{z}/{x}/{y}.png",
+            "https://opengeo.ncep.noaa.gov/geoserver/conus/conus_bref_qcd/ows?service=wms&version=1.1.1&request=GetMap&bbox={bbox-epsg-3857}&srs=EPSG:3857&format=image/png&width=256&height=256&layers=conus_bref_qcd&transparent=true&tiles=true&time=2026-09-03T20:30:16.000Z"
+        ],
         tileSize: 256,
         volatile: true
     });
@@ -28,6 +33,7 @@ map.on('load', () => {
         type: 'raster',
         source: 'radar',
         paint: {
+            'resampling': 'nearest',
             'raster-fade-duration': 0,
             'raster-opacity': 0.8
         },
@@ -40,3 +46,8 @@ map.on('zoom', (e) => {
     opacity = Math.min(0.8, Math.max(0.4, opacity));
     map.setPaintProperty('radar-layer', 'raster-opacity', opacity);
 });
+*/
+
+getL3Scans().then(d => console.log(d));
+getL2Scans().then(d => console.log(d));
+getMRMSData().then(d => console.log(d));
