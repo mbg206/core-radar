@@ -7,9 +7,10 @@
   "description": "A weather radar and alert viewer",
   "main": "index.js",
   "scripts": {
-    "build": "esbuild app=src/index.ts worker=node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs --bundle --outdir=public --splitting --chunk-names=maplibre-chunk --minify --format=esm --sourcemap",
-    "watch": "esbuild app=src/index.ts worker=node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs --bundle --outdir=public --splitting --chunk-names=maplibre-chunk --minify --format=esm --sourcemap --watch"
+    "build": "node build.js pub",
+    "watch": "node build.js dev"
   },
+  "type": "module",
   "author": "mbg206",
   "license": "ISC",
   "dependencies": {

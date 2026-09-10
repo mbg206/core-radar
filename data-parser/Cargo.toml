@@ -1,0 +1,12 @@
+[package]
+name = "data-parser"
+version = "0.1.0"
+edition = "2024"
+homepage = "https://github.com/mbg206/core-radar/tree/main/data-parser"
+repository = "https://github.com/mbg206/core-radar"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
