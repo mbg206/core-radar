@@ -31,6 +31,12 @@ jobs:
         node-version: 24
         cache: 'npm'
 
+    - name: Setup Rust
+      uses: actions-rust-lang/setup-rust-toolchain@v2
+
+    - name: Install wasm-pack
+      run: cargo install wasm-pack
+
     - name: Build app
       run: |
        npm ci
