@@ -5,3 +5,4 @@ data-parser/target
 
 public/*
 !public/index.html
+!public/assets
