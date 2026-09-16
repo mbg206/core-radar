@@ -10,14 +10,15 @@ maplibregl.setWorkerUrl(new URL('./worker.js', import.meta.url).toString());
 if (!window.location.search.includes("test")) {
 const map = new maplibregl.Map({
     container: 'map',
-    //style: STYLE,
-    style: "https://tiles.openfreemap.org/styles/bright", // style URL
+    style: STYLE,
+    //style: "https://tiles.openfreemap.org/styles/bright", // style URL
     center: [-98.583, 39.833], // starting position [lng, lat]
     zoom: 4,
     minZoom: 2,
     maxZoom: 16,
     // https://github.com/maplibre/maplibre-gl-js/blob/0d4b6f1e7d53beac00a4423ce53e7c16a3353b5f/src/tile/tile_manager.ts#L460
-    maxTileCacheZoomLevels: 10 // default: 5
+    maxTileCacheZoomLevels: 10, // default: 5
+    localIdeographFontFamily: false // TODO prefer EN fonts in style tho 
 });
 
 map.on('load', () => {

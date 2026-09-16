@@ -12,21 +12,22 @@ export const STYLE: StyleSpecification = {
   "metadata": {
     "maputnik:renderer": "mlgljs"
   },
+  "projection": {"type": "mercator"},
   "sources": {
     "openmaptiles": {
       "type": "vector",
       "url": "https://tiles.openfreemap.org/planet"
     }
   },
-  "sprite": "",
-  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "sprite": new URL("./assets/sprites", document.baseURI).href,
+  "glyphs": `${new URL("./assets/glyphs", document.baseURI).href}/{fontstack}/{range}.pbf`,
   "layers": [
     {
       "id": "background",
       "type": "background",
       "paint": {
         "background-color": "#444"
-      },
+      }
     },
     {
       "id": "water",
@@ -45,6 +46,7 @@ export const STYLE: StyleSpecification = {
       "source": "openmaptiles",
       "source-layer": "water_name",
       "layout": {
+        "text-font": ["Rounded Mplus 1c Regular"],
         "symbol-placement": "line-center",
         "text-field": [
           "case",
@@ -72,6 +74,5 @@ export const STYLE: StyleSpecification = {
       },
       "filter": ["all"]
     }
-  ],
-  "projection": {"type": "mercator"}
+  ]
 };
