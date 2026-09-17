@@ -73,15 +73,23 @@ if (buildMode == "dev") {
         process.stdin.setRawMode(true);
     }
 
+    let building = false;
     process.stdin.on('keypress', async (str, key) => {
         if (key.name == 'c') {
-            console.info("quitting...");
+            console.log("quitting...");
             await ctx.dispose();
             process.exit(0);
         }
         if (key.name == 'r') {
+            if (building) {
+                console.warn("Rust build already started!");
+                return;
+            }
+
+            building = true;
             await rustBuild();
-            console.error("Rust component rebuilt");
+            console.info("Rust component rebuilt");
+            building = false;
         }
     });
 }
