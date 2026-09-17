@@ -19,7 +19,7 @@ export const STYLE: StyleSpecification = {
       "url": "https://tiles.openfreemap.org/planet"
     }
   },
-  "sprite": new URL("./assets/sprites", document.baseURI).href,
+  "sprite": new URL("./compiled/sprites", document.baseURI).href,
   "glyphs": `${new URL("./assets/glyphs", document.baseURI).href}/{fontstack}/{range}.pbf`,
   "layers": [
     {

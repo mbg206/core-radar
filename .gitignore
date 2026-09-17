@@ -3,6 +3,4 @@ node_modules
 data-parser/pkg
 data-parser/target
 
-public/*
-!public/index.html
-!public/assets
+public/compiled
