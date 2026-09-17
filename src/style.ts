@@ -1,4 +1,4 @@
-import {PropertyValueSpecification, StyleSpecification} from "maplibre-gl";
+import type {PropertyValueSpecification, StyleSpecification} from "maplibre-gl";
 
 function zoomInterp(from: number[], to: number[]): PropertyValueSpecification<number> {
   return ["interpolate", ["linear"], ["zoom"], from[0], from[1], to[0], to[1]];
@@ -15,7 +15,8 @@ export const STYLE: StyleSpecification = {
       url: "https://tiles.openstreetmap.us/vector/openmaptiles.json"
     },
     radar: {
-      type: "raster"
+      type: "raster",
+      tiles: ["https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q/{z}/{x}/{y}.png"]
     },
     stations: {
       type: "geojson",
@@ -778,5 +779,11 @@ export const STYLE: StyleSpecification = {
       }
     }
   ]
-  //id: "obn0mke"
 };
+
+export function styleJSON() {
+  const obj: any = STYLE;
+  obj.id = "obn0mke";
+  console.log(obj);
+  return JSON.stringify(obj, null, "  ");
+}
