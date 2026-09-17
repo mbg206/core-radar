@@ -124,7 +124,8 @@ async function rustBuild() {
 
 async function spriteBuild(ratio) {
     const path = COMPILE_DIR + (ratio == 1 ? "/sprites" : "/sprites@2x");
-    const success = await run("spreet", [
+    const command = (existsSync("spreet.exe") || existsSync("spreet")) ? "./spreet" : "spreet";
+    const success = await run(command, [
         "--minify-index-file",
         "--unique",
         "--ratio", ratio.toString(),
