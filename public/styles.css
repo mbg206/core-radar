@@ -1,0 +1,154 @@
+@font-face {
+    font-family: "M PLUS Rounded 1c";
+    src: local("Rounded Mplus 1c"), url("assets/fonts/MPLUSRounded1c-Regular.ttf");
+    font-weight: 400;
+}
+@font-face {
+    font-family: "M PLUS Rounded 1c";
+    src: local("Rounded Mplus 1c Bold"), url("assets/fonts/MPLUSRounded1c-Bold.ttf");
+    font-weight: 700;
+}
+@font-face {
+    font-family: "M PLUS Rounded 1c";
+    src: local("Rounded Mplus 1c Light"), url("assets/fonts/MPLUSRounded1c-Light.ttf");
+    font-weight: 300;
+}
+
+* {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    color: #EEE;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+#map {
+    height: 100vh;
+    width: 100vw;
+}
+button, input {
+    all: unset;
+}
+button {
+    cursor: pointer;
+}
+button:focus-visible {
+    outline: 1px solid #AAF;
+}
+
+/* class styles */
+
+.trans {
+    background-color: rgba(0, 0, 0, 0.67);
+    border: 2px solid #000;
+}
+.bubble {
+    border-radius: 20px;
+}
+
+/* notebook */
+
+#notebook {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+#notebook-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 256px;
+    padding: 2px 6px;
+}
+#notebook-options {
+    position: absolute;
+    background-color: #000;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    border: 1px solid #FFF;
+}
+#notebook-options.visible {
+    display: flex;
+}
+
+#notebook-items {
+    padding: 4px;
+    height: 320px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+.notebook-header {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid #EEE;
+    padding: 4px 6px;
+    margin: 2px 0;
+}
+.notebook-item {
+    display: block;
+    padding: 2px 6px;
+    margin: 2px 0;
+    border-radius: 4px;
+}
+.notebook-item:hover {
+    background-color: rgb(177, 86, 0);
+}
+.notebook-item::before {
+    content: "- ";
+}
+
+/* location search */
+
+#search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+#search {
+    display: inline-flex;
+    align-items: center;
+}
+#search-input {
+    all: unset;
+    padding: 0 2px;
+    width: 160px;
+}
+.result {
+    display: block;
+    border-top: none;
+    width: 100%;
+    max-width: 40ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: "...";
+}
+
+/* quick layer selector */
+
+#toprow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+
+    display: flex;
+    justify-content: center;
+}
+#quick-controls {
+    padding: 4px 8px;
+    position: absolute;
+}
+.control {
+    background-color: rgba(255, 0, 0, 0.4);
+    margin: 0 4px;
+    padding: 3px 20px;
+}
+.control.enabled {
+    background-color: rgba(0, 255, 0, 0.4);
+    text-decoration: underline;
+}

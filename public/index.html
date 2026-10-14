@@ -5,18 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Map</title>
     <link href="compiled/app.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
     <style>
-        body {
-            margin: 0;
-        }
-        #map {
-            height: 100vh;
-            width: 100vw;
-        }
     </style>
 </head>
 <body>
     <div id="map"></div>
+
+    <!-- notebook (main layer selector) -->
+
+    <div id="notebook" class="trans">
+        <button id="notebook-dropdown" class="trans">
+            <span>MRMS</span>
+            <img src="assets/icons/dropdown.svg">
+        </button>
+        <div id="notebook-options">
+            <button class="notebook-item">MRMS</button>
+            <button class="notebook-item">NEXRAD</button>
+            <button class="notebook-item">Outlooks</button>
+        </div>
+        <div id="notebook-items">
+            <div class="notebook-header">Level III</div>
+            <button class="notebook-item">Refl</button>
+            <button class="notebook-item">Vel</button>
+            <button class="notebook-item">etc</button>
+        </div>
+    </div>
+
+    <!-- location search -->
+    
+    <div id="search-container">
+        <div id="search" class="trans">
+            <input type="text" id="search-input" placeholder="Search ...">
+            <img src="assets/icons/location.svg">
+        </div>
+
+        <div id="search-results">
+            <button class="result trans">Ames Municipal Airport</button>
+            <button class="result trans">Ames Municipal Airport</button>
+            <button class="result trans">Ames Municipal Airport</button>
+            <button class="result trans">Ames Municipal Airport</button>
+            <button class="result trans">Ames Municipal Airport</button>
+            <button class="result trans">Ames Municipal Airport, Ames Municipal Airport, Ames Municipal Airport</button>
+        </div>
+    </div>
+
+    <!-- quick layer selector -->
+    <div id="toprow">
+        <div id="quick-controls" class="trans bubble">
+            <button class="bubble control enabled">Thing 1</button>
+            <button class="bubble control enabled">Thing 2</button>
+            <button class="bubble control disabled">Thing 3</button>
+        </div>
+    </div>
 
     <script src="compiled/app.js" type="module"></script>
 </body>
