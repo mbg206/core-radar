@@ -13,9 +13,17 @@ export const MAP = new maplibregl.Map({
     maxZoom: 16,
     // https://github.com/maplibre/maplibre-gl-js/blob/0d4b6f1e7d53beac00a4423ce53e7c16a3353b5f/src/tile/tile_manager.ts#L460
     maxTileCacheZoomLevels: 10, // default: 5
-    localIdeographFontFamily: false // TODO prefer EN fonts in style tho 
+    localIdeographFontFamily: false, // TODO prefer EN fonts in style tho 
+    attributionControl: false
 });
 
+// MAP.addControl(new maplibregl.AttributionControl(), "bottom-right");
+MAP.addControl(new maplibregl.NavigationControl({
+    visualizePitch: true,
+    visualizeRoll: true,
+    showZoom: true,
+    showCompass: true
+}));
 
 MAP.on('load', () => {
     const source = MAP.getSource<maplibregl.RasterTileSource>('radar');

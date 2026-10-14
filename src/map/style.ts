@@ -304,7 +304,7 @@ export const STYLE: StyleSpecification = {
       },
       paint: {"text-color": "#AAA", "text-translate-anchor": "map"}
     },
-    {
+ /* {
       id: "water_name_point",
       type: "symbol",
       source: "openmaptiles",
@@ -324,7 +324,7 @@ export const STYLE: StyleSpecification = {
       },
       paint: {"text-color": "#AAA", "text-translate-anchor": "map"}
     },
-    {
+ */ {
       id: "landuse_hospital",
       type: "fill",
       source: "openmaptiles",
@@ -647,7 +647,7 @@ export const STYLE: StyleSpecification = {
       paint: {
         "raster-fade-duration": 0,
         "raster-opacity": zoomInterp([8, 0.8], [13, 0.3]),
-        "resampling": "nearest",
+        resampling: "nearest"
       }
     },
     {
