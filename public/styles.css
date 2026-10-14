@@ -45,7 +45,7 @@ button:focus-visible {
     border: 2px solid #000;
 }
 .bubble {
-    border-radius: 20px;
+    border-radius: 16px;
 }
 
 /* notebook */
@@ -142,6 +142,7 @@ button:focus-visible {
 #quick-controls {
     padding: 4px 8px;
     position: absolute;
+    border-radius: 0 0 20px 20px;
 }
 .control {
     background-color: rgba(255, 0, 0, 0.4);
