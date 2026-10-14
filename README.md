@@ -4,6 +4,9 @@ A serverless weather radar/alert/discussion browser
 
 [See it here!](https://mbg206.github.io/core-radar/)
 
+> [!IMPORTANT]  
+> This app is *very* early in development, and the main branch is still used as a testing ground until basic yet polished functionality is completed.
+
 ## For development:
 
 - `npm ci` to install Node dependences
@@ -20,7 +23,7 @@ A serverless weather radar/alert/discussion browser
 
 ### Planned/Completed
 
-- [ ] Custom map style
+- [X] Custom map style
 - [ ] Radar timeline
 - [ ] Individual station view (Map tile images)
 - [ ] Individual station view (Level 2/3 parsing in Rust)
