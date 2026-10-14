@@ -74,11 +74,18 @@ if (buildMode == "dev") {
     }
 
     let building = false;
+    let quitting = false;
     process.stdin.on('keypress', async (str, key) => {
         if (key.name == 'c') {
-            console.log("quitting...");
             await ctx.dispose();
-            process.exit(0);
+            if (building) {
+                quitting = true;
+                console.log("quitting after Rust build...");
+            }
+            else {
+                console.log("quitting...");
+                process.exit(0);
+            }
         }
         if (key.name == 'r') {
             if (building) {
@@ -89,6 +96,11 @@ if (buildMode == "dev") {
             building = true;
             await rustBuild();
             console.info("Rust component rebuilt");
+
+            if (quitting) {
+                process.exit(0);
+            }
+
             building = false;
         }
     });

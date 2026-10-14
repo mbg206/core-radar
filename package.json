@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "build": "node build.js pub",
-    "watch": "node build.js dev"
+    "watch": "node build.js dev",
+    "cleanup": "node build.js cleanup"
   },
   "type": "module",
   "author": "mbg206",
