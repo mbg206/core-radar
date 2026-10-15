@@ -52,8 +52,14 @@ const ctx = await esbuild.context({
     chunkNames: "chunk-[hash]",
     minify: true,
     format: "esm",
-    sourcemap: "linked"
-    
+    sourcemap: "linked",
+    plugins: [{
+        name: "console",
+        setup: (e) => {
+            e.onStart(() => console.log("Starting app build..."));
+            e.onEnd(() => console.log("App build complete!"));
+        }
+    }]
 });
 
 if (buildMode == "dev") {
@@ -63,6 +69,7 @@ if (buildMode == "dev") {
         host: "127.0.0.1",
         port: 8000
     });
+    
 
     console.log(`Hosting on port ${server.port}\n`);
     console.log(server.hosts.map(host => `http://${host}:${server.port}/`).join('\n'));
@@ -109,7 +116,6 @@ if (buildMode == "dev") {
 else {
     await ctx.rebuild();
     await ctx.dispose();
-    console.info("Build complete!");
 }
 
 function run(command, args) {
