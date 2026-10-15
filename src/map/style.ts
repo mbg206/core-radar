@@ -20,10 +20,11 @@ export const STYLE: StyleSpecification = {
     },
     stations: {
       type: "geojson",
-      data: {
-        type: "FeatureCollection",
-        features: []
-      }
+      data: "https://api.weather.gov/radar/stations?stationType=WSR-88D,TDWR"
+      // data: {
+      //   type: "FeatureCollection",
+      //   features: []
+      // }
     }
   },
   sprite: new URL("./compiled/sprites", document.baseURI).href,
@@ -304,13 +305,17 @@ export const STYLE: StyleSpecification = {
       },
       paint: {"text-color": "#AAA", "text-translate-anchor": "map"}
     },
- /* {
+    {
       id: "water_name_point",
       type: "symbol",
       source: "openmaptiles",
       "source-layer": "water_name",
       minzoom: 2,
       maxzoom: 6,
+      filter: [
+        "any",
+        ["==", ["get", "class"], "sea"]
+      ],
       layout: {
         "text-font": ["Rounded Mplus 1c Regular"],
         "symbol-placement": "point",
@@ -324,7 +329,7 @@ export const STYLE: StyleSpecification = {
       },
       paint: {"text-color": "#AAA", "text-translate-anchor": "map"}
     },
- */ {
+    {
       id: "landuse_hospital",
       type: "fill",
       source: "openmaptiles",
@@ -641,7 +646,7 @@ export const STYLE: StyleSpecification = {
       }
     },
     {
-      id: "radar",
+      id: "wx_radar",
       type: "raster",
       source: "radar",
       paint: {
@@ -651,9 +656,33 @@ export const STYLE: StyleSpecification = {
       }
     },
     {
-      id: "stations",
+      id: "wx_stations",
       type: "symbol",
-      source: "stations"
+      source: "stations",
+      layout: {
+        "icon-image": "radar-wsr88d",
+        "icon-allow-overlap": true
+      },
+    },
+    {
+      id: "wx_stations_name",
+      type: "symbol",
+      source: "stations",
+      layout: {
+        "text-field": ["get", "id"],
+        "text-font": [
+          "Rounded Mplus 1c Bold"
+        ],
+        "text-size": 12,
+        "text-offset": [0, 1.5]
+      },
+      paint: {
+        "text-halo-color": "rgba(0, 0, 0, 1)",
+        "text-halo-width": 0.7,
+        "text-halo-blur": 1,
+        "text-color": "rgba(0, 150, 255, 1)"
+      },
+      minzoom: 5
     },
     {
       id: "label_city",
@@ -781,9 +810,11 @@ export const STYLE: StyleSpecification = {
   ]
 };
 
-export function styleJSON() {
+// for debugging
+function styleJSON() {
   const obj: any = STYLE;
   obj.id = "obn0mke";
   console.log(obj);
-  return JSON.stringify(obj, null, "  ");
+  //return JSON.stringify(obj, null, "  ");
 }
+(window as any).styleJSON = styleJSON;
