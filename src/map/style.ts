@@ -20,11 +20,10 @@ export const STYLE: StyleSpecification = {
     },
     stations: {
       type: "geojson",
-      data: "https://api.weather.gov/radar/stations?stationType=WSR-88D,TDWR"
-      // data: {
-      //   type: "FeatureCollection",
-      //   features: []
-      // }
+      data: {
+        type: "FeatureCollection",
+        features: []
+      }
     }
   },
   sprite: new URL("./compiled/sprites", document.baseURI).href,
@@ -660,29 +659,23 @@ export const STYLE: StyleSpecification = {
       type: "symbol",
       source: "stations",
       layout: {
-        "icon-image": "radar-wsr88d",
+        "icon-image": [
+          "concat",
+          [
+            "case",
+            ["get", "isTDWR"],
+            "radar-tdwr",
+            "radar-wsr88d"
+          ],
+          [
+            "case",
+            ["get", "offline"],
+            "-off",
+            ""
+          ]
+        ],
         "icon-allow-overlap": true
       },
-    },
-    {
-      id: "wx_stations_name",
-      type: "symbol",
-      source: "stations",
-      layout: {
-        "text-field": ["get", "id"],
-        "text-font": [
-          "Rounded Mplus 1c Bold"
-        ],
-        "text-size": 12,
-        "text-offset": [0, 1.5]
-      },
-      paint: {
-        "text-halo-color": "rgba(0, 0, 0, 1)",
-        "text-halo-width": 0.7,
-        "text-halo-blur": 1,
-        "text-color": "rgba(0, 150, 255, 1)"
-      },
-      minzoom: 5
     },
     {
       id: "label_city",
@@ -806,7 +799,27 @@ export const STYLE: StyleSpecification = {
         "text-halo-width": 1,
         "text-halo-blur": 1
       }
-    }
+    },
+    {
+      id: "label_station",
+      type: "symbol",
+      source: "stations",
+      layout: {
+        "text-field": ["get", "id"],
+        "text-font": [
+          "Rounded Mplus 1c Bold"
+        ],
+        "text-size": 12,
+        "text-offset": [0, 1.5]
+      },
+      paint: {
+        "text-halo-color": "rgba(0, 0, 0, 1)",
+        "text-halo-width": 0.7,
+        "text-halo-blur": 1,
+        "text-color": "rgba(0, 150, 255, 1)"
+      },
+      minzoom: 5
+    },
   ]
 };
 
@@ -814,6 +827,8 @@ export const STYLE: StyleSpecification = {
 function styleJSON() {
   const obj: any = STYLE;
   obj.id = "obn0mke";
+  obj.sprite = "https://mbg206.github.io/core-radar/compiled/sprites";
+  obj.glyphs = "https://mbg206.github.io/core-radar/assets/glyphs/{fontstack}/{range}.pbf";
   console.log(obj);
   //return JSON.stringify(obj, null, "  ");
 }
