@@ -1,4 +1,4 @@
-const quickControlContainer = document.getElementById("quick-controls") as HTMLElement;
+const QUICK_CONTROL_CONTAINER = document.getElementById("quick-controls") as HTMLElement;
 
 function addQuickControl(text: string, toggled: boolean) {
     const button = document.createElement("button");
@@ -9,7 +9,7 @@ function addQuickControl(text: string, toggled: boolean) {
     }
     button.addEventListener("click", () => button.classList.toggle("enabled"))
 
-    quickControlContainer.append(button);
+    QUICK_CONTROL_CONTAINER.append(button);
     return button;
 }
 
@@ -17,3 +17,5 @@ addQuickControl("Show MDs", true);
 addQuickControl("Show Alerts", true);
 addQuickControl("Show Reports", false);
 addQuickControl("Show Outlook", false);
+
+

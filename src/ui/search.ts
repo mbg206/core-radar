@@ -2,23 +2,23 @@ import { MAP } from "../map/map";
 
 const GEOCODE_SERVER = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
-const searchInput = document.getElementById("search-input") as HTMLInputElement;
-const searchResultsContainer = document.getElementById("search-results");
+const SEARCH_INPUT = document.getElementById("search-input") as HTMLInputElement;
+const SEARCH_RESULTS_CONTAINER = document.getElementById("search-results");
 
-searchInput.addEventListener("focus", populateResults);
-searchInput.addEventListener("input", populateResults);
-searchInput.addEventListener("blur", (e) => {
-    if ((e.relatedTarget as HTMLElement)?.parentElement != searchResultsContainer) {
+SEARCH_INPUT.addEventListener("focus", populateResults);
+SEARCH_INPUT.addEventListener("input", populateResults);
+SEARCH_INPUT.addEventListener("blur", (e) => {
+    if ((e.relatedTarget as HTMLElement)?.parentElement != SEARCH_RESULTS_CONTAINER) {
         clearResults();
     }
 });
 
 async function populateResults() {
-    if (searchInput.value.length == 0) {
+    if (SEARCH_INPUT.value.length == 0) {
         clearResults();
     }
 
-    const res = await fetch(`${GEOCODE_SERVER}/suggest?f=json&countryCode=USA,PRI,VIR,GUM,ASM&category=Land+Features,Bay,Channel,Cove,Dam,Delta,Gulf,Lagoon,Lake,Ocean,Reef,Reservoir,Sea,Sound,Strait,Waterfall,Wharf,Amusement+Park,Historical+Monument,Landmark,Tourist+Attraction,Zoo,College,Beach,Campground,Golf+Course,Harbor,Nature+Reserve,Other+Parks+and+Outdoors,Park,Racetrack,Scenic+Overlook,Ski+Resort,Sports+Center,Sports+Field,Wildlife+Reserve,Airport,Ferry,Marina,Pier,Port,Resort,Postal,Populated+Place&maxSuggestions=5&returnCollections=false&text=${encodeURIComponent(searchInput.value)}`);
+    const res = await fetch(`${GEOCODE_SERVER}/suggest?f=json&countryCode=USA,PRI,VIR,GUM,ASM&category=Land+Features,Bay,Channel,Cove,Dam,Delta,Gulf,Lagoon,Lake,Ocean,Reef,Reservoir,Sea,Sound,Strait,Waterfall,Wharf,Amusement+Park,Historical+Monument,Landmark,Tourist+Attraction,Zoo,College,Beach,Campground,Golf+Course,Harbor,Nature+Reserve,Other+Parks+and+Outdoors,Park,Racetrack,Scenic+Overlook,Ski+Resort,Sports+Center,Sports+Field,Wildlife+Reserve,Airport,Ferry,Marina,Pier,Port,Resort,Postal,Populated+Place&maxSuggestions=5&returnCollections=false&text=${encodeURIComponent(SEARCH_INPUT.value)}`);
     const data = await res.json();
     clearResults();
 
@@ -38,12 +38,12 @@ async function populateResults() {
             clearResults();
         });
         
-        searchResultsContainer.append(button);
+        SEARCH_RESULTS_CONTAINER.append(button);
     }
 }
 
 function clearResults() {
-    searchResultsContainer.innerHTML = "";
+    SEARCH_RESULTS_CONTAINER.innerHTML = "";
 }
 
 // https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?f=json&countryCode=USA,PRI,VIR,GUM,ASM&category=Land+Features,Bay,Channel,Cove,Dam,Delta,Gulf,Lagoon,Lake,Ocean,Reef,Reservoir,Sea,Sound,Strait,Waterfall,Wharf,Amusement+Park,Historical+Monument,Landmark,Tourist+Attraction,Zoo,College,Beach,Campground,Golf+Course,Harbor,Nature+Reserve,Other+Parks+and+Outdoors,Park,Racetrack,Scenic+Overlook,Ski+Resort,Sports+Center,Sports+Field,Wildlife+Reserve,Airport,Ferry,Marina,Pier,Port,Resort,Postal,Populated+Place&maxSuggestions=5&text=Ames&_=1502903455655
