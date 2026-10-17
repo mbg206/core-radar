@@ -33,3 +33,23 @@ MAP.on('load', () => {
         //"https://opengeo.ncep.noaa.gov/geoserver/conus/conus_bref_qcd/ows?service=wms&version=1.1.1&request=GetMap&bbox={bbox-epsg-3857}&srs=EPSG:3857&format=image/png&width=256&height=256&layers=conus_bref_qcd&transparent=true&tiles=true&time=2026-09-03T20:30:16.000Z"
     ]);
 });
+
+MAP.on('error', (e) => {
+    // console.error(e);
+});
+(window as any).map = MAP;
+
+/*
+function layer(id: string): () => maplibregl.StyleLayer {
+    const holder: {layer?: maplibregl.StyleLayer} = {layer: null};
+    return () => {
+        if (holder.layer == null) {
+            holder.layer = MAP.getLayer(id);
+        }
+        
+        return holder.layer;
+    }
+}
+
+export const RADAR_LAYER = layer("radar");
+*/

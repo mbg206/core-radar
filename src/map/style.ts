@@ -1,8 +1,17 @@
-import type {PropertyValueSpecification, StyleSpecification} from "maplibre-gl";
+import type {GeoJSONSourceSpecification, PropertyValueSpecification, StyleSpecification} from "maplibre-gl";
 
 function zoomInterp(from: number[], to: number[]): PropertyValueSpecification<number> {
   return ["interpolate", ["linear"], ["zoom"], from[0], from[1], to[0], to[1]];
 }
+
+const OVERLAY_ZOOM_INTERP = zoomInterp([8, 0.8], [13, 0.3]);
+const EMPTY_GEOJSON: GeoJSONSourceSpecification = {
+  type: "geojson",
+  data: {
+    type: "FeatureCollection",
+    features: []
+  }
+};
 
 export const STYLE: StyleSpecification = {
   version: 8,
@@ -18,13 +27,8 @@ export const STYLE: StyleSpecification = {
       type: "raster",
       tiles: ["https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q/{z}/{x}/{y}.png"]
     },
-    stations: {
-      type: "geojson",
-      data: {
-        type: "FeatureCollection",
-        features: []
-      }
-    }
+    stations: EMPTY_GEOJSON,
+    outlook: EMPTY_GEOJSON
   },
   sprite: new URL("./compiled/sprites", document.baseURI).href,
   glyphs: `${new URL("./assets/glyphs", document.baseURI).href}/{fontstack}/{range}.pbf`,
@@ -650,9 +654,61 @@ export const STYLE: StyleSpecification = {
       source: "radar",
       paint: {
         "raster-fade-duration": 0,
-        "raster-opacity": zoomInterp([8, 0.8], [13, 0.3]),
+        "raster-opacity": OVERLAY_ZOOM_INTERP,
         resampling: "nearest"
       }
+    },
+    {
+      "id": "wx_outlook",
+      "type": "fill",
+      "source": "outlook",
+      "paint": {
+        "fill-antialias": false,
+        "fill-color": ["get", "fill"],
+        "fill-opacity": OVERLAY_ZOOM_INTERP
+      }
+    },
+    {
+      "id": "wx_outlook_line",
+      "type": "line",
+      "source": "outlook",
+      "paint": {
+        "line-color": ["get", "stroke"],
+        "line-width": 3
+      }
+    },
+    {
+      "id": "wx_outlook_label",
+      "type": "symbol",
+      "layout": {
+        "text-field": ["get", "label"],
+        "text-font": [
+          "Rounded Mplus 1c Bold"
+        ],
+        "text-size": 16,
+        "visibility": "visible",
+        "symbol-placement": "point",
+        "symbol-avoid-edges": false,
+        "icon-rotation-alignment": "auto",
+        "icon-allow-overlap": false,
+        "text-allow-overlap": false,
+        "symbol-height-anchor": "ground",
+        "text-pitch-alignment": "auto",
+        "text-rotation-alignment": "map",
+        "text-keep-upright": false,
+        "text-offset": [0, 0],
+        "text-ignore-placement": false,
+        "text-optional": false,
+        "symbol-spacing": 500
+      },
+      "paint": {
+        "text-halo-blur": 0,
+        "text-color": ["get", "stroke"],
+        "text-halo-color": "rgba(0, 0, 0, 1)",
+        "text-halo-width": 0.7
+      },
+      "minzoom": 3,
+      "source": "outlook"
     },
     {
       id: "wx_stations",

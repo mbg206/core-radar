@@ -73,7 +73,7 @@ if (buildMode == "dev") {
 
     console.log(`Hosting on port ${server.port}\n`);
     console.log(server.hosts.map(host => `http://${host}:${server.port}/`).join('\n'));
-    console.log("\nPress 'r' to rebuild rust component, or 'c' to exit")
+    console.log("\nPress 'r' to rebuild rust component, or 'c' to exit\n")
 
     readline.emitKeypressEvents(process.stdin);
     if (process.stdin.isTTY) {

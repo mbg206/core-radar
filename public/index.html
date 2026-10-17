@@ -15,21 +15,11 @@
     <!-- notebook (main layer selector) -->
 
     <div id="notebook" class="trans">
-        <button id="notebook-dropdown" class="trans">
-            <span>MRMS</span>
+        <button id="notebook-dropdown" class="trans" popovertarget="notebook-options">
+            <span id="notebook-label"></span>
             <img src="assets/icons/dropdown.svg">
         </button>
-        <div id="notebook-options">
-            <button class="notebook-item">MRMS</button>
-            <button class="notebook-item">NEXRAD</button>
-            <button class="notebook-item">Outlooks</button>
-        </div>
-        <div id="notebook-items">
-            <div class="notebook-header">Level III</div>
-            <button class="notebook-item">Refl</button>
-            <button class="notebook-item">Vel</button>
-            <button class="notebook-item">etc</button>
-        </div>
+        <div id="notebook-options" popover></div>
     </div>
 
     <!-- location search -->
