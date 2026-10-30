@@ -1,6 +1,7 @@
-import { LAYER_CATEGORIES } from "../layers/categories";
-import { LayerCategory, LayerType } from "../layers/types";
 import { MAP } from "../map/map";
+import { CATEGORIES } from "../product/category/categories";
+import { loadProduct } from "../product/manager";
+import { ProductCategory, ProductType } from "../product/types";
 
 const QUICK_CONTROL_CONTAINER = document.getElementById("quick-controls") as HTMLElement;
 
@@ -27,32 +28,11 @@ addQuickControl("Show Outlook", false);
 
 const NOTEBOOK = document.getElementById("notebook");
 const NOTEBOOK_LABEL = document.getElementById("notebook-label");
-const LAYER_DROPDOWN = document.getElementById("notebook-options");
-const LAYER_BUTTONS: Map<LayerType, HTMLButtonElement> = new Map();
+const PRODUCT_DROPDOWN = document.getElementById("notebook-options");
+const PRODUCT_BUTTONS: Map<ProductType, HTMLButtonElement> = new Map();
 let currentCatContainer: HTMLDivElement = null;
-let currentLayer: LayerType = null;
-let currentLayerButton: HTMLButtonElement = null;
 
-function selectLayer(layer: LayerType = null) {
-    if (layer == currentLayer) {
-        return;
-    }
-
-    currentLayer?.unload();
-    currentLayerButton?.classList.remove("selected");
-
-    if (currentLayer?.mapLayers != layer?.mapLayers) {
-        currentLayer?.mapLayers.forEach(l => MAP.setLayoutProperty(l, "visibility", "none"));
-        layer       ?.mapLayers.forEach(l => MAP.setLayoutProperty(l, "visibility", "visible"));
-    }
-
-    currentLayerButton = LAYER_BUTTONS.get(layer);
-    currentLayerButton?.classList.add("selected");
-    currentLayer = layer;
-    currentLayer?.load();
-}
-
-function selectCategory(category: LayerCategory, container: HTMLDivElement) {
+function selectCategory(category: ProductCategory, container: HTMLDivElement) {
     if (container == currentCatContainer) {
         return;
     }
@@ -61,13 +41,13 @@ function selectCategory(category: LayerCategory, container: HTMLDivElement) {
     currentCatContainer = container;
     currentCatContainer.classList.add("visible");
     NOTEBOOK_LABEL.textContent = category.name;
-    LAYER_DROPDOWN.hidePopover();
+    PRODUCT_DROPDOWN.hidePopover();
 
-    selectLayer(category.items.find(l => !l.isSection) as LayerType);
+    loadProduct(category.items.find(l => !l.isSection) as ProductType, PRODUCT_BUTTONS);
 }
 
 let first = true;
-for (const category of LAYER_CATEGORIES) {
+for (const category of CATEGORIES) {
     const container = document.createElement("div");
     container.classList.add("notebook-category");
 
@@ -76,7 +56,7 @@ for (const category of LAYER_CATEGORIES) {
     option.classList.add("notebook-item");
     option.textContent = category.name;
     option.addEventListener("click", () => selectCategory(category, container));
-    LAYER_DROPDOWN.append(option);
+    PRODUCT_DROPDOWN.append(option);
 
     // actual category listing
     for (const item of category.items) {
@@ -88,12 +68,12 @@ for (const category of LAYER_CATEGORIES) {
         }
 
         else {
-            const layer = item as LayerType;
+            const product = item as ProductType;
             const elem = document.createElement("button");
-            elem.classList.add("notebook-item", "notebook-layer");
+            elem.classList.add("notebook-item", "notebook-product");
             elem.textContent = item.name;
-            elem.addEventListener("click", () => selectLayer(layer));
-            LAYER_BUTTONS.set(layer, elem);
+            elem.addEventListener("click", () => loadProduct(product, PRODUCT_BUTTONS));
+            PRODUCT_BUTTONS.set(product, elem);
             container.append(elem);
         }
     }

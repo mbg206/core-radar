@@ -110,7 +110,7 @@ button:focus-visible {
 .notebook-item.selected {
     background-color: #B15600;
 }
-.notebook-layer::before {
+.notebook-product::before {
     content: "- ";
 }
 

@@ -37,6 +37,9 @@ MAP.on('load', () => {
 MAP.on('error', (e) => {
     // console.error(e);
 });
+
+export const OUTLOOK_SOURCE = () => MAP.getSource<maplibregl.GeoJSONSource>("outlook");
+
 (window as any).map = MAP;
 
 /*

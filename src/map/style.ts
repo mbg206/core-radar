@@ -317,7 +317,11 @@ export const STYLE: StyleSpecification = {
       maxzoom: 6,
       filter: [
         "any",
-        ["==", ["get", "class"], "sea"]
+        [
+          "in",
+          ["get", "class"],
+          ["literal", ["sea", "bay"]]
+        ]
       ],
       layout: {
         "text-font": ["Rounded Mplus 1c Regular"],
@@ -649,16 +653,6 @@ export const STYLE: StyleSpecification = {
       }
     },
     {
-      id: "wx_radar",
-      type: "raster",
-      source: "radar",
-      paint: {
-        "raster-fade-duration": 0,
-        "raster-opacity": OVERLAY_ZOOM_INTERP,
-        resampling: "nearest"
-      }
-    },
-    {
       "id": "wx_outlook",
       "type": "fill",
       "source": "outlook",
@@ -666,6 +660,16 @@ export const STYLE: StyleSpecification = {
         "fill-antialias": false,
         "fill-color": ["get", "fill"],
         "fill-opacity": OVERLAY_ZOOM_INTERP
+      }
+    },
+    {
+      id: "wx_radar",
+      type: "raster",
+      source: "radar",
+      paint: {
+        "raster-fade-duration": 0,
+        "raster-opacity": OVERLAY_ZOOM_INTERP,
+        resampling: "nearest"
       }
     },
     {

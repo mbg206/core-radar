@@ -1,4 +1,4 @@
-import { fetchOK } from "../../util/network";
+import { fetchOK } from "../util";
 
 export interface AWSObject {
     key: string;
