@@ -6,29 +6,65 @@ export async function fetchOK(url: RequestInfo) {
     return res;
 }
 
-export class MapSourcePoller {
+abstract class Poller {
     controller = new AbortController();
     timeout: number
 
-    constructor(interval: number, url: string, handler: (data: any) => void, isJSON: boolean = true) {
-        const request = new Request(url, {signal: this.controller.signal});
-
-        const fetcher = () => fetchOK(request).then(res => isJSON ? res.json() : res.text())
+    constructor(interval: number, handler: (data: any) => void) {
+        const fetcher = () => this.pollerFetch()
             .then((data) => {
                 if (this.controller.signal.aborted) return;
                 handler(data);
-                this.timeout = setTimeout(fetcher, interval);
             })
             .catch(e => {
                 if (this.controller.signal.aborted) return;
                 console.error(e);
-            });
+            })
+            .finally(() => 
+                this.timeout = setTimeout(fetcher, interval)
+            );
         fetcher();
     }
     
     stop() {
         this.controller.abort();
         clearTimeout(this.timeout);
+    }
+
+    abstract pollerFetch(): Promise<any>
+}
+
+export class FetchPoller extends Poller {
+    request: Request;
+    isJSON: boolean;
+    constructor(interval: number, url: string, handler: (data: any) => void, isJSON: boolean = true) {
+        super(interval, handler);
+        this.request = new Request(url, {signal: this.controller.signal});
+        this.isJSON = isJSON;
+    }
+    
+    async pollerFetch(): Promise<any> {
+        const res = await fetchOK(this.request);
+        return this.isJSON ? res.json() : res.text();
+    }
+}
+
+
+export class MultiFetchPoller extends Poller {
+    requests: {req: Request, isJSON: boolean}[];
+    constructor(interval: number, urls: (string|{url: string, isJSON: boolean})[], handler: (data: any) => void) {
+        super(interval, handler);
+        this.requests = urls.map(
+            data => typeof data == "string" ?
+                ({req: new Request(data, {signal: this.controller.signal}), isJSON: true}) :
+                ({req: new Request(data.url, {signal: this.controller.signal}), isJSON: data.isJSON})
+        );
+    }
+    
+    async pollerFetch(): Promise<any> {
+        const fetches = this.requests.map(data => fetchOK(data.req));
+        const ress = await Promise.all(fetches);
+        return Promise.all(ress.map((res, i) => this.requests[i].isJSON ? res.json() : res.text()));
     }
 }
 
