@@ -36,8 +36,7 @@ if (buildMode == "cleanup") {
 if (!existsSync(COMPILE_DIR))
     mkdirSync(COMPILE_DIR);
 
-if (!(await spriteBuild(1))) process.exit(2);
-if (!(await spriteBuild(2))) process.exit(3);
+if (!(await fullSpriteBuild())) process.exit(2);
 if (!(await rustBuild())) process.exit(1);
 
 const ctx = await esbuild.context({
@@ -73,21 +72,22 @@ if (buildMode == "dev") {
 
     console.log(`Hosting on port ${server.port}\n`);
     console.log(server.hosts.map(host => `http://${host}:${server.port}/`).join('\n'));
-    console.log("\nPress 'r' to rebuild rust component, or 'c' to exit\n")
+    console.log("\nPress 'r' to rebuild rust component, 's' to rebuild sprites, or 'c' to exit\n")
 
     readline.emitKeypressEvents(process.stdin);
     if (process.stdin.isTTY) {
         process.stdin.setRawMode(true);
     }
 
-    let building = false;
+    let buildingR = false;
+    let buildingS = false;
     let quitting = false;
     process.stdin.on('keypress', async (str, key) => {
         if (key.name == 'c') {
             await ctx.dispose();
-            if (building) {
+            if (buildingR || buildingS) {
                 quitting = true;
-                console.log("quitting after Rust build...");
+                console.log("quitting after builds...");
             }
             else {
                 console.log("quitting...");
@@ -95,20 +95,36 @@ if (buildMode == "dev") {
             }
         }
         if (key.name == 'r') {
-            if (building) {
+            if (buildingR) {
                 console.warn("Rust build already started!");
                 return;
             }
 
-            building = true;
+            buildingR = true;
             await rustBuild();
             console.info("Rust component rebuilt");
 
-            if (quitting) {
+            if (quitting && !buildingS) {
                 process.exit(0);
             }
 
-            building = false;
+            buildingR = false;
+        }
+        if (key.name == 's') {
+            if (buildingS) {
+                console.warn("Spreet build already started!");
+                return;
+            }
+
+            buildingS = true;
+            await fullSpriteBuild();
+            console.info("Sprites rebuilt");
+
+            if (quitting && !buildingR) {
+                process.exit(0);
+            }
+
+            buildingS = false;
         }
     });
 }
@@ -147,7 +163,6 @@ async function rustBuild() {
     return success;
 }
 
-
 async function spriteBuild(ratio) {
     const path = COMPILE_DIR + (ratio == 1 ? "/sprites" : "/sprites@2x");
     const command = (existsSync("spreet.exe") || existsSync("spreet")) ? "./spreet" : "spreet";
@@ -175,4 +190,8 @@ async function spriteBuild(ratio) {
         console.error("Sprites build failed!");
     }
     return success;
+}
+
+async function fullSpriteBuild() {
+    return await spriteBuild(1) && await spriteBuild(2);
 }
