@@ -9,9 +9,10 @@ export async function fetchOK(url: RequestInfo) {
 abstract class Poller {
     controller = new AbortController();
     timeout: number
+    start: () => Promise<void>
 
     constructor(interval: number, handler: (data: any) => void) {
-        const fetcher = () => this.pollerFetch()
+        this.start = () => this.pollerFetch()
             .then((data) => {
                 if (this.controller.signal.aborted) return;
                 handler(data);
@@ -21,9 +22,8 @@ abstract class Poller {
                 console.error(e);
             })
             .finally(() => 
-                this.timeout = setTimeout(fetcher, interval)
+                this.timeout = setTimeout(this.start, interval)
             );
-        fetcher();
     }
     
     stop() {
@@ -41,6 +41,7 @@ export class FetchPoller extends Poller {
         super(interval, handler);
         this.request = new Request(url, {signal: this.controller.signal});
         this.isJSON = isJSON;
+        this.start();
     }
     
     async pollerFetch(): Promise<any> {
@@ -59,6 +60,7 @@ export class MultiFetchPoller extends Poller {
                 ({req: new Request(data, {signal: this.controller.signal}), isJSON: true}) :
                 ({req: new Request(data.url, {signal: this.controller.signal}), isJSON: data.isJSON})
         );
+        this.start();
     }
     
     async pollerFetch(): Promise<any> {
