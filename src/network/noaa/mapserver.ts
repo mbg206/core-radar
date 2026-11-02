@@ -1,4 +1,4 @@
-import { GeoJSONSource } from "maplibre-gl";
+import { GeoJSONFeature } from "maplibre-gl";
 import { FetchPoller, MINUTES, MultiFetchPoller } from "../util";
 import { OUTLOOK_SOURCE } from "../../map/map";
 
@@ -30,6 +30,12 @@ export function createCategoricalOutlookPoller(probPath: string, condPath: strin
                 prob.features[0].properties.issue != cond.features[0].properties.issue
             ) throw new Error("Mismatch between probabilistic and intensity issue times");
             // should probably be throw due to future "date updated" code i might add to poller
+            
+            prob.features.forEach((f: GeoJSONFeature) => {
+                if (!isNaN(f.properties.label)) {
+                    f.properties.label = (parseFloat(f.properties.label) * 100) + "%";
+                }
+            });
 
             prob.features.push(...cond.features);
             OUTLOOK_SOURCE().setData(prob);
