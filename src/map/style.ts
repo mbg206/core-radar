@@ -656,10 +656,36 @@ export const STYLE: StyleSpecification = {
       "id": "wx_outlook",
       "type": "fill",
       "source": "outlook",
+      filter: [
+        "all",
+        ["!", [
+          "in",
+          ["get", "label"],
+          ["literal", ["CIG1", "CIG2", "CIG3"]]
+        ]]
+      ],
       "paint": {
         "fill-antialias": false,
         "fill-color": ["get", "fill"],
         "fill-opacity": OVERLAY_ZOOM_INTERP
+      }
+    },
+    {
+      "id": "wx_outlook_int",
+      "type": "fill",
+      "source": "outlook",
+      filter: [
+        "all",
+        [
+          "in",
+          ["get", "label"],
+          ["literal", ["CIG1", "CIG2", "CIG3"]]
+        ]
+      ],
+      "paint": {
+        "fill-antialias": false,
+        "fill-opacity": OVERLAY_ZOOM_INTERP,
+        "fill-pattern": ["get", "label"]
       }
     },
     {

@@ -1,5 +1,4 @@
-import { createOutlookPoller, OutlookPath } from "../../../network/noaa/mapserver";
-import { MapSourcePoller, MINUTES } from "../../../network/util";
+import { createCategoricalOutlookPoller, createOutlookPoller, OutlookPath } from "../../../network/noaa/mapserver";
 import { createProduct, ProductType } from "../../types";
 
 function createOutlookProduct(name: string) {
@@ -7,7 +6,8 @@ function createOutlookProduct(name: string) {
         name: name,
         layers: ["wx_outlook", "wx_outlook_line", "wx_outlook_label"],
 
-        load: () => createOutlookPoller(OutlookPath.SPC_DAY1_CONVECTIVE)
+        // load: () => createOutlookPoller(OutlookPath.SPC_DAY1_CONVECTIVE)
+        load: () => createCategoricalOutlookPoller("", "")
     });
 }
 
