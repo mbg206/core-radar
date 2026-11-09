@@ -49,12 +49,82 @@ button:focus-visible {
     border-radius: 16px;
 }
 
-/* notebook */
+/* location search */
 
-#notebook {
+#search-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+#search {
+    display: inline-flex;
+    align-items: center;
+}
+#search-input {
+    all: unset;
+    padding: 0 2px;
+    width: 160px;
+}
+.result {
+    display: block;
+    border-top: none;
+    width: 100%;
+    max-width: 40ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: "...";
+}
+
+/* quick layer selector */
+
+#toprow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+
+    display: flex;
+    justify-content: center;
+}
+#quick-controls {
+    padding: 4px 8px;
+    position: absolute;
+    border-radius: 0 0 20px 20px;
+}
+.control {
+    background-color: rgba(255, 0, 0, 0.4);
+    margin: 0 4px;
+    padding: 3px 20px;
+}
+.control.enabled {
+    background-color: rgba(0, 255, 0, 0.4);
+    text-decoration: underline;
+}
+
+/* footer master */
+
+footer {
     position: fixed;
     bottom: 0;
     left: 0;
+    width: 100%;
+    display: grid;
+    align-items: end;
+    justify-content: start;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: auto 1fr;
+
+    pointer-events: none;
+}
+#notebook, #timeline {
+    pointer-events: all;
+}
+
+/* notebook */
+
+#notebook {
+    grid-row: 1 / 3;
 }
 #notebook-dropdown {
     display: flex;
@@ -114,55 +184,26 @@ button:focus-visible {
     content: "- ";
 }
 
-/* location search */
-
-#search-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-#search {
-    display: inline-flex;
-    align-items: center;
-}
-#search-input {
-    all: unset;
-    padding: 0 2px;
-    width: 160px;
-}
-.result {
-    display: block;
-    border-top: none;
-    width: 100%;
-    max-width: 40ch;
-    white-space: nowrap;
+/* timeline/outlook controls */
+#timeline {
+    margin: 0 256px 16px 192px;
     overflow: hidden;
-    text-overflow: "...";
 }
 
-/* quick layer selector */
-
-#toprow {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0;
-
+.outlook-row {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex: 1;
 }
-#quick-controls {
-    padding: 4px 8px;
-    position: absolute;
-    border-radius: 0 0 20px 20px;
+.outlook-btn {
+    flex-grow: 1;
+    text-align: center;
 }
-.control {
-    background-color: rgba(255, 0, 0, 0.4);
-    margin: 0 4px;
-    padding: 3px 20px;
+.outlook-btn:hover {
+    background-color: rgba(0.4, 0.4, 0.4, 0.67);
 }
-.control.enabled {
-    background-color: rgba(0, 255, 0, 0.4);
-    text-decoration: underline;
+
+#color-guide {
+    width: 100%;
+    height: 12px;
 }

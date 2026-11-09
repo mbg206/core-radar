@@ -12,16 +12,6 @@
 <body>
     <div id="map"></div>
 
-    <!-- notebook (main product selector) -->
-
-    <div id="notebook" class="trans">
-        <button id="notebook-dropdown" class="trans" popovertarget="notebook-options">
-            <span id="notebook-label"></span>
-            <img src="assets/icons/dropdown.svg">
-        </button>
-        <div id="notebook-options" popover></div>
-    </div>
-
     <!-- location search -->
     
     <div id="search-container">
@@ -34,9 +24,49 @@
     </div>
 
     <!-- quick layer selector -->
+
     <div id="toprow">
         <div id="quick-controls" class="trans"></div>
     </div>
+
+    <footer> <!-- style as grid w notebook taking 2 rows -->
+
+        <!-- notebook (main product selector) -->
+
+        <div id="notebook" class="trans">
+            <button id="notebook-dropdown" class="trans" popovertarget="notebook-options">
+                <span id="notebook-label"></span>
+                <img src="assets/icons/dropdown.svg">
+            </button>
+            <div id="notebook-options" popover></div>
+        </div>
+
+        <!-- timeline -->
+
+        <div id="timeline" class="trans bubble">
+            
+            <div id="outlook-controls">
+                <div class="outlook-row">
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                </div>
+                <div class="outlook-row">
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                    <button class="outlook-btn">Day 1</button>
+                </div>
+            </div> <!-- style as grid, use flexbox -->
+
+        </div>
+
+        <img src="assets/guide-test.png" id="color-guide">
+
+    </footer>
 
     <script src="compiled/app.js" type="module"></script>
 </body>
