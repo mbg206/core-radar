@@ -1,6 +1,6 @@
 import * as maplibregl from 'maplibre-gl';
 import "maplibre-gl/dist/maplibre-gl.css";
-import {STYLE} from "./style";
+import {EMPTY_FEATURES, STYLE} from "./style";
 
 maplibregl.setWorkerUrl(new URL('./worker.js', import.meta.url).toString());
 
@@ -39,6 +39,9 @@ MAP.on('error', (e) => {
 });
 
 export const OUTLOOK_SOURCE = () => MAP.getSource<maplibregl.GeoJSONSource>("outlook");
+export function clearGeoJSONSource(source: maplibregl.GeoJSONSource) {
+    source.setData(EMPTY_FEATURES);
+}
 
 (window as any).map = MAP;
 

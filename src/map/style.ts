@@ -5,12 +5,13 @@ function zoomInterp(from: number[], to: number[]): PropertyValueSpecification<nu
 }
 
 const OVERLAY_ZOOM_INTERP = zoomInterp([8, 0.8], [13, 0.3]);
+export const EMPTY_FEATURES: GeoJSON.FeatureCollection = {
+  type: "FeatureCollection",
+  features: []
+};
 const EMPTY_GEOJSON: GeoJSONSourceSpecification = {
   type: "geojson",
-  data: {
-    type: "FeatureCollection",
-    features: []
-  }
+  data: EMPTY_FEATURES
 };
 
 export const STYLE: StyleSpecification = {

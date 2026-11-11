@@ -219,6 +219,9 @@ footer {
 .outlook-btn:hover {
     background-color: var(--hover-color);
 }
+.outlook-btn.selected {
+    background-color: var(--select-color);
+}
 
 #color-guide {
     width: 100%;

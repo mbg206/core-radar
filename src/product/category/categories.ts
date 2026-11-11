@@ -1,9 +1,9 @@
 import { createCategory, ProductCategory } from "../types";
-import { CATEGORICAL_PRODUCTS } from "./outlook/categorical";
+import { OUTLOOK_PRODUCTS } from "./outlook/outlook";
 
 const OUTLOOK_CATEGORY: ProductCategory = {
     name: "Outlooks",
-    items: CATEGORICAL_PRODUCTS
+    items: OUTLOOK_PRODUCTS
 };
 
 
