@@ -21,7 +21,7 @@ function addQuickControl(text: string, toggled: boolean) {
 addQuickControl("Show MDs", true);
 addQuickControl("Show Alerts", true);
 addQuickControl("Show Reports", false);
-addQuickControl("Show Outlook", false);
+// addQuickControl("Show Outlook", false);
 
 
 // notebook
